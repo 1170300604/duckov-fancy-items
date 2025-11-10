@@ -1,13 +1,5 @@
-using Duckov.Modding;
-using Duckov.UI;
-using Duckov.Utilities;
-using HarmonyLib;
-using ItemStatsSystem;
-using System.Collections;
-using System.Collections.Generic;
+using FancyItems.Core;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UI.ProceduralImage;
 
 namespace FancyItems.Systems.UI
 {
@@ -21,10 +13,12 @@ namespace FancyItems.Systems.UI
         /// </summary>
         /// <param name="quality">物品品质</param>
         /// <returns>对应的颜色</returns>
-        public static Color GetQualityColor(int quality)
+        public static Color? GetQualityColor(int quality)
         {
             if (quality < 0) quality = 0;
-            int colorIndex = Mathf.Min(quality, Constants.FancyItemsConstants.QualityColors.Length - 1);
+            if (quality > 6) quality = 6;
+            var colorIndex = ModSetting.QualityColor[quality];
+            if (colorIndex == 0) return null;
             return Constants.FancyItemsConstants.QualityColors[colorIndex];
         }
 
@@ -45,7 +39,7 @@ namespace FancyItems.Systems.UI
         /// <returns>透明度值</returns>
         public static float GetBackgroundAlpha(int quality)
         {
-            return GetQualityColor(quality).a;
+            return GetQualityColor(quality)?.a ?? 0f;
         }
     }
 }

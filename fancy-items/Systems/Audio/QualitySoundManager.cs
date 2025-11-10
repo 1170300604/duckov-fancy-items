@@ -1,13 +1,5 @@
-using Duckov.Modding;
-using Duckov.UI;
-using Duckov.Utilities;
-using HarmonyLib;
-using ItemStatsSystem;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UI.ProceduralImage;
 
 namespace FancyItems.Systems.Audio
 {
@@ -22,7 +14,7 @@ namespace FancyItems.Systems.Audio
         /// <param name="quality">物品品质</param>
         public static void PlayQualitySound(int quality)
         {
-            if (!Core.ModConfiguration.EnableSoundEffects) return;
+            if (!Core.ModSetting.EnableSoundEffects) return;
 
             string soundName;
             float volume;
@@ -83,7 +75,7 @@ namespace FancyItems.Systems.Audio
         /// </summary>
         public static IEnumerator TestAllQualitySounds()
         {
-            if (!Core.ModConfiguration.EnableSoundEffects)
+            if (!Core.ModSetting.EnableSoundEffects)
             {
                 Debug.Log($"{Constants.FancyItemsConstants.LogPrefix} 音效功能已禁用");
                 yield break;

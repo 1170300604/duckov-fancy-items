@@ -1,14 +1,8 @@
-using Duckov.Modding;
 using Duckov.UI;
-using Duckov.Utilities;
 using FancyItems.Core;
-using HarmonyLib;
 using ItemStatsSystem;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UI.ProceduralImage;
 
 namespace FancyItems.Systems.Audio
 {
@@ -37,7 +31,7 @@ namespace FancyItems.Systems.Audio
 
         void Update()
         {
-            if (!ModConfiguration.EnableSoundEffects) return;
+            if (!ModSetting.EnableSoundEffects) return;
 
             if (itemDisplay != null)
             {

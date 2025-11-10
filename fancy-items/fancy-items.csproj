@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
-    <DuckovPath>D:\Program Files (x86)\Steam\steamapps\common\Escape from Duckov\</DuckovPath>
+    <DuckovPath>D:\Program Files\Steam\steamapps\common\Escape from Duckov\</DuckovPath>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Lib.Harmony" Version="2.3.3">
+    <PackageReference Include="Lib.Harmony" Version="2.4.1">
       <PrivateAssets>none</PrivateAssets>
       <ExcludeAssets>none</ExcludeAssets>
     </PackageReference>

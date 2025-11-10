@@ -1,10 +1,6 @@
-using Duckov.Modding;
 using Duckov.UI;
-using Duckov.Utilities;
-using HarmonyLib;
 using ItemStatsSystem;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.ProceduralImage;
@@ -59,7 +55,7 @@ namespace FancyItems.Systems.UI
             if (background != null) return;
 
             // 创建背景GameObject
-            GameObject bgObject = new GameObject("FancyItems_Background");
+            var bgObject = new GameObject("FancyItems_Background");
             background = bgObject.AddComponent<ProceduralImage>();
 
             // 添加UniformModifier用于圆角
@@ -67,14 +63,14 @@ namespace FancyItems.Systems.UI
             roundedModifier.Radius = Constants.FancyItemsConstants.BackgroundCornerRadius;
 
             // 添加LayoutElement并设置ignoreLayout，防止LayoutGroup干扰
-            LayoutElement layoutElement = bgObject.AddComponent<LayoutElement>();
+            var layoutElement = bgObject.AddComponent<LayoutElement>();
             layoutElement.ignoreLayout = true;
 
             // 设置为当前ItemDisplay的子对象（使用false保留本地坐标）
             bgObject.transform.SetParent(transform, false);
 
             // 获取RectTransform并完全重置
-            RectTransform rect = bgObject.GetComponent<RectTransform>();
+            var rect = bgObject.GetComponent<RectTransform>();
 
             // 重置所有transform属性
             rect.localPosition = Vector3.zero;
@@ -154,13 +150,23 @@ namespace FancyItems.Systems.UI
         private void UpdateBackgroundColor(int quality)
         {
             if (background == null) return;
+            /*
             if (!QualityColorConfig.ShouldShowBackground(quality))
             {
                 background.gameObject.SetActive(false);
                 return;
+            }*/
+            var tmpColor = QualityColorConfig.GetQualityColor(quality);
+            if (tmpColor.HasValue)
+            {
+                background.gameObject.SetActive(true);
+                background.color = tmpColor.Value;
             }
-            background.gameObject.SetActive(true);
-            background.color = QualityColorConfig.GetQualityColor(quality);
+            else
+            {
+                background.gameObject.SetActive(false);
+            }
+            
         }
 
         private void OnDestroy()

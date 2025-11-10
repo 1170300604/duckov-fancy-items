@@ -1,13 +1,5 @@
-using Duckov.Modding;
-using Duckov.UI;
-using Duckov.Utilities;
-using HarmonyLib;
 using ItemStatsSystem;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UI.ProceduralImage;
 
 namespace FancyItems.Systems.Optimization
 {
@@ -17,44 +9,23 @@ namespace FancyItems.Systems.Optimization
     /// </summary>
     public static class SearchTimeOptimizer
     {
-        /// <summary>
-        /// 优化后的搜索时间配置（秒）- 只优化低级物品
-        /// </summary>
-        private static readonly float[] OptimizedInspectingTimes = new float[]
-        {
-            0.8f,  // Quality 0: 垃圾物品 - 优化为0.8秒
-            0.8f,  // Quality 1: 普通物品 - 优化为0.8秒
-            0.9f,  // Quality 2: 优良物品 - 优化为1.2秒
-            -1f,   // Quality 3: 精良物品 - 保持原时间
-            -1f,   // Quality 4: 史诗物品 - 保持原时间
-            -1f,   // Quality 5: 传说物品 - 保持原时间
-            -1f,   // Quality 6+: 神话物品 - 保持原时间
-        };
 
         /// <summary>
         /// 获取优化后的搜索时间
         /// </summary>
         /// <param name="item">物品</param>
         /// <returns>优化后的时间（秒），-1表示保持原时间</returns>
-        public static float GetOptimizedInspectingTime(Item item)
+        public static float GetOptimizedInspectingTimeScale(Item item)
         {
             if (item == null) return 1f;
 
-            int quality = item.Quality;
+            var quality = item.Quality;
             if (quality < 0) quality = 0;
-            if (quality >= OptimizedInspectingTimes.Length)
-                quality = OptimizedInspectingTimes.Length - 1;
-
-            float optimizedTime = OptimizedInspectingTimes[quality];
-
-            // 如果值为-1，表示保持原始时间，返回原始时间（在Postfix中已经获取）
-            if (optimizedTime < 0)
-            {
-                // 这里返回-1，Postfix会处理
-                return -1f;
-            }
-
-            return optimizedTime;
+            if (quality > 6) quality = 6;
+            
+            var optimizedTimeScale = Core.ModSetting.SearchTimeOptimization[quality];
+            
+            return optimizedTimeScale;
         }
 
         /// <summary>
@@ -65,10 +36,10 @@ namespace FancyItems.Systems.Optimization
         /// <returns>优化后的时间</returns>
         public static float ProcessSearchTimeOptimization(Item item, float originalTime)
         {
-            if (!Core.ModConfiguration.EnableSearchOptimization) return originalTime;
+            if (!Core.ModSetting.EnableSearchOptimization) return originalTime;
             if (item == null) return originalTime;
 
-            float optimizedTime = GetOptimizedInspectingTime(item);
+            var optimizedTime = GetOptimizedInspectingTimeScale(item);
 
             // 如果返回-1，表示保持原始时间，不需要修改
             if (optimizedTime < 0)
@@ -90,8 +61,8 @@ namespace FancyItems.Systems.Optimization
         /// </summary>
         private static void LogOptimizationInfo(Item item, float originalTime, float optimizedTime)
         {
-            string itemName = item.DisplayName ?? "Unknown";
-            float reductionPercent = (originalTime > 0) ?
+            var itemName = item.DisplayName ?? "Unknown";
+            var reductionPercent = (originalTime > 0) ?
                 ((originalTime - optimizedTime) / originalTime * 100f) : 0f;
 
             Debug.Log($"{Constants.FancyItemsConstants.LogPrefix} 时间优化: {itemName} (品质{item.Quality}) " +
