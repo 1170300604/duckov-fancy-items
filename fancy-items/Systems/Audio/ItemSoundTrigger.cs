@@ -7,33 +7,28 @@ using UnityEngine;
 namespace FancyItems.Systems.Audio
 {
     /// <summary>
-    /// 独立的物品音效触发器
-    /// 不依赖于视觉效果，独立处理音效播放
+    ///     独立的物品音效触发器
+    ///     不依赖于视觉效果，独立处理音效播放
     /// </summary>
     public class ItemSoundTrigger : MonoBehaviour
     {
-        private ItemDisplay itemDisplay;
         private Item currentItem;
+        private ItemDisplay itemDisplay;
+        private bool lastInspected;
         private Item lastItem;
-        private bool lastInspected = false;
-        private bool soundPlayed = false;
+        private bool soundPlayed;
 
-        void Awake()
-        {
-            itemDisplay = GetComponent<ItemDisplay>();
-        }
+        private void Awake() => itemDisplay = GetComponent<ItemDisplay>();
 
-        void Start()
-        {
+        private void Start() =>
             // 延迟初始化，确保所有组件都已加载
             StartCoroutine(DelayedInitialize());
-        }
 
-        void Update()
+        private void Update()
         {
             if (!ModSetting.EnableSoundEffects) return;
 
-            if (itemDisplay != null)
+            if (itemDisplay)
             {
                 currentItem = itemDisplay.Target;
 
@@ -41,11 +36,11 @@ namespace FancyItems.Systems.Audio
                 {
                     lastItem = currentItem;
                     // 保持与旧版本一致的逻辑：初始化时记录物品当前的检查状态
-                    lastInspected = (currentItem != null) ? currentItem.Inspected : false;
+                    lastInspected = currentItem && currentItem.Inspected;
                     soundPlayed = false;
                 }
 
-                if (currentItem != null && currentItem.Inspected && !lastInspected && !soundPlayed)
+                if (currentItem && currentItem.Inspected && !lastInspected && !soundPlayed)
                 {
                     soundPlayed = true;
                     // 播放品质音效
@@ -56,15 +51,15 @@ namespace FancyItems.Systems.Audio
             }
         }
 
+        private void OnDestroy()
+        {
+            // 清理资源
+        }
+
         private IEnumerator DelayedInitialize()
         {
             yield return null;
             // 确保组件已正确初始化
-        }
-
-        void OnDestroy()
-        {
-            // 清理资源
         }
     }
 }

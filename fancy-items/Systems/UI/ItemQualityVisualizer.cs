@@ -1,4 +1,6 @@
 using Duckov.UI;
+using FancyItems.Constants;
+using FancyItems.Systems.Audio;
 using ItemStatsSystem;
 using System.Collections;
 using UnityEngine;
@@ -8,20 +10,32 @@ using UnityEngine.UI.ProceduralImage;
 namespace FancyItems.Systems.UI
 {
     /// <summary>
-    /// 物品品质可视化组件
+    ///     物品品质可视化组件
     /// </summary>
     public class ItemQualityVisualizer : MonoBehaviour
     {
-        private ItemDisplay itemDisplay;
         private ProceduralImage background;
-        private UniformModifier roundedModifier;
+        private bool initialized;
+        private bool isDirty = true;
+        private ItemDisplay itemDisplay;
+        private bool lastInspected;
         private Item lastItem;
         private int lastQuality = -1;
-        private bool lastInspected = false;
-        private bool initialized = false;
-        private bool soundPlayed = false;
-        private bool isDirty = true;
-        private float nextUpdateTime = 0f;
+        private float nextUpdateTime;
+        private UniformModifier roundedModifier;
+        private bool soundPlayed;
+
+        private void LateUpdate()
+        {
+            if (!initialized || itemDisplay == null || background == null) return;
+
+            if (!isDirty && Time.time < nextUpdateTime) return;
+
+            nextUpdateTime = Time.time + FancyItemsConstants.PerformanceUpdateInterval;
+            isDirty = false;
+
+            UpdateItemDisplay();
+        }
 
         private void OnEnable()
         {
@@ -33,6 +47,11 @@ namespace FancyItems.Systems.UI
             {
                 isDirty = true;
             }
+        }
+
+        private void OnDestroy()
+        {
+            if (background != null) Destroy(background.gameObject);
         }
 
         private IEnumerator DelayedInitialize()
@@ -55,22 +74,22 @@ namespace FancyItems.Systems.UI
             if (background != null) return;
 
             // 创建背景GameObject
-            var bgObject = new GameObject("FancyItems_Background");
+            GameObject bgObject = new GameObject("FancyItems_Background");
             background = bgObject.AddComponent<ProceduralImage>();
 
             // 添加UniformModifier用于圆角
             roundedModifier = bgObject.AddComponent<UniformModifier>();
-            roundedModifier.Radius = Constants.FancyItemsConstants.BackgroundCornerRadius;
+            roundedModifier.Radius = FancyItemsConstants.BackgroundCornerRadius;
 
             // 添加LayoutElement并设置ignoreLayout，防止LayoutGroup干扰
-            var layoutElement = bgObject.AddComponent<LayoutElement>();
+            LayoutElement? layoutElement = bgObject.AddComponent<LayoutElement>();
             layoutElement.ignoreLayout = true;
 
             // 设置为当前ItemDisplay的子对象（使用false保留本地坐标）
             bgObject.transform.SetParent(transform, false);
 
             // 获取RectTransform并完全重置
-            var rect = bgObject.GetComponent<RectTransform>();
+            RectTransform? rect = bgObject.GetComponent<RectTransform>();
 
             // 重置所有transform属性
             rect.localPosition = Vector3.zero;
@@ -95,18 +114,6 @@ namespace FancyItems.Systems.UI
             background.raycastTarget = false;
         }
 
-        private void LateUpdate()
-        {
-            if (!initialized || itemDisplay == null || background == null) return;
-
-            if (!isDirty && Time.time < nextUpdateTime) return;
-
-            nextUpdateTime = Time.time + Constants.FancyItemsConstants.PerformanceUpdateInterval;
-            isDirty = false;
-
-            UpdateItemDisplay();
-        }
-
         private void UpdateItemDisplay()
         {
             Item currentItem = itemDisplay.Target;
@@ -114,7 +121,7 @@ namespace FancyItems.Systems.UI
             {
                 lastItem = currentItem;
                 lastQuality = -1;
-                lastInspected = (currentItem != null) ? currentItem.Inspected : false;
+                lastInspected = currentItem != null ? currentItem.Inspected : false;
                 soundPlayed = false;
             }
 
@@ -128,18 +135,18 @@ namespace FancyItems.Systems.UI
             {
                 soundPlayed = true;
                 // 播放品质音效（独立于视觉效果开关）
-                Systems.Audio.QualitySoundManager.PlayQualitySound(currentItem.Quality);
+                QualitySoundManager.PlayQualitySound(currentItem.Quality);
             }
             lastInspected = currentItem.Inspected;
 
-            bool isShopItem = itemDisplay.IsStockshopSample;
+            var isShopItem = itemDisplay.IsStockshopSample;
             if (!currentItem.Inspected && !isShopItem)
             {
                 if (background.gameObject.activeSelf) background.gameObject.SetActive(false);
                 return;
             }
 
-            int quality = currentItem.Quality;
+            var quality = currentItem.Quality;
             if (quality != lastQuality)
             {
                 lastQuality = quality;
@@ -156,7 +163,7 @@ namespace FancyItems.Systems.UI
                 background.gameObject.SetActive(false);
                 return;
             }*/
-            var tmpColor = QualityColorConfig.GetQualityColor(quality);
+            Color? tmpColor = QualityColorConfig.GetQualityColor(quality);
             if (tmpColor.HasValue)
             {
                 background.gameObject.SetActive(true);
@@ -166,14 +173,9 @@ namespace FancyItems.Systems.UI
             {
                 background.gameObject.SetActive(false);
             }
-            
+
         }
 
-        private void OnDestroy()
-        {
-            if (background != null) Destroy(background.gameObject);
-        }
-
-        public void MarkDirty() { isDirty = true; }
+        public void MarkDirty() => isDirty = true;
     }
 }

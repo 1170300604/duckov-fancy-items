@@ -1,0 +1,32 @@
+﻿{
+  "qualityToggle": "是否启用品质视觉效果",
+  "timeToggle": "是否启用搜索时间乘数",
+  "audioToggle": "是否启用音效",
+  
+  "qualityGroup": "物品颜色设置(修改后需要重启)",
+  "qualityList0": "垃圾物品颜色",
+  "qualityList1": "普通物品颜色",
+  "qualityList2": "优良物品颜色",
+  "qualityList3": "精良物品颜色",
+  "qualityList4": "史诗物品颜色",
+  "qualityList5": "传说物品颜色",
+  "qualityList6": "神话物品颜色",
+  
+  "timeGroup": "搜索时间设置",
+  "timeSlider0": "垃圾物品搜索时间乘数",
+  "timeSlider1": "普通物品搜索时间乘数",
+  "timeSlider2": "优良物品搜索时间乘数",
+  "timeSlider3": "精良物品搜索时间乘数",
+  "timeSlider4": "史诗物品搜索时间乘数",
+  "timeSlider5": "传说物品搜索时间乘数",
+  "timeSlider6": "神话物品搜索时间乘数",
+  
+  "colorName0": "None(Original)",
+  "colorName1": "Grey",
+  "colorName2": "Green",
+  "colorName3": "Blue",
+  "colorName4": "Purple",
+  "colorName5": "Orange",
+  "colorName6": "Red",
+  "colorName7": "White"
+}

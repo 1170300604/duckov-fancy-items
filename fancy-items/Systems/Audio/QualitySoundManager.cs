@@ -1,20 +1,25 @@
+using FancyItems.Constants;
+using FancyItems.Core;
+using FMOD.Studio;
+using FMODUnity;
+using System;
 using System.Collections;
 using UnityEngine;
 
 namespace FancyItems.Systems.Audio
 {
     /// <summary>
-    /// 品质音效管理器
+    ///     品质音效管理器
     /// </summary>
     public static class QualitySoundManager
     {
         /// <summary>
-        /// 播放物品品质音效
+        ///     播放物品品质音效
         /// </summary>
         /// <param name="quality">物品品质</param>
         public static void PlayQualitySound(int quality)
         {
-            if (!Core.ModSetting.EnableSoundEffects) return;
+            if (!ModSetting.EnableSoundEffects) return;
 
             string soundName;
             float volume;
@@ -51,45 +56,47 @@ namespace FancyItems.Systems.Audio
         }
 
         /// <summary>
-        /// 播放音效
+        ///     播放音效
         /// </summary>
         private static void PlaySound(string soundName, float volume, int quality)
         {
             try
             {
-                FMOD.Studio.EventInstance eventInstance = FMODUnity.RuntimeManager.CreateInstance(soundName);
+                EventInstance eventInstance = RuntimeManager.CreateInstance(soundName);
                 eventInstance.setVolume(volume);
                 eventInstance.start();
                 eventInstance.release();
-
-                Debug.Log($"{Constants.FancyItemsConstants.LogPrefix} 🔊 播放品质 {quality}: {soundName} (音量: {volume * 100}%)");
+#if DEBUG
+                Debug.Log($"{FancyItemsConstants.LogPrefix} 🔊 播放品质 {quality}: {soundName} (音量: {volume * 100}%)");
+#endif
+                
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogWarning($"{Constants.FancyItemsConstants.LogPrefix} ❌ 播放失败: {soundName} - {e.Message}");
+                Debug.LogWarning($"{FancyItemsConstants.LogPrefix} ❌ 播放失败: {soundName} - {e.Message}");
             }
         }
 
         /// <summary>
-        /// 测试所有品质音效
+        ///     测试所有品质音效
         /// </summary>
         public static IEnumerator TestAllQualitySounds()
         {
-            if (!Core.ModSetting.EnableSoundEffects)
+            if (!ModSetting.EnableSoundEffects)
             {
-                Debug.Log($"{Constants.FancyItemsConstants.LogPrefix} 音效功能已禁用");
+                Debug.Log($"{FancyItemsConstants.LogPrefix} 音效功能已禁用");
                 yield break;
             }
 
-            Debug.Log($"{Constants.FancyItemsConstants.LogPrefix} 🎵 开始测试音效...");
+            Debug.Log($"{FancyItemsConstants.LogPrefix} 🎵 开始测试音效...");
 
-            for (int quality = 1; quality <= 6; quality++)
+            for (var quality = 1; quality <= 6; quality++)
             {
                 PlayQualitySound(quality);
                 yield return new WaitForSeconds(1f);
             }
 
-            Debug.Log($"{Constants.FancyItemsConstants.LogPrefix} 🎵 音效测试完成！");
+            Debug.Log($"{FancyItemsConstants.LogPrefix} 🎵 音效测试完成！");
         }
     }
 }

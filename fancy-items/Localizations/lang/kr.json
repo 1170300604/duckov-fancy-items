@@ -1,0 +1,32 @@
+﻿{
+  "qualityToggle": "고품질 시각 효과 활성화",
+  "timeToggle": "검색 시간 배율 활성화",
+  "audioToggle": "사운드 효과 활성화",
+
+  "qualityGroup": "아이템 색상 설정(재시작 필요)",
+  "qualityList0": "희귀도 0 아이템 색상",
+  "qualityList1": "희귀도 1 아이템 색상",
+  "qualityList2": "희귀도 2 아이템 색상",
+  "qualityList3": "희귀도 3 아이템 색상",
+  "qualityList4": "희귀도 4 아이템 색상",
+  "qualityList5": "희귀도 5 아이템 색상",
+  "qualityList6": "희귀도 6 아이템 색상",
+
+  "timeGroup": "검색 시간 설정",
+  "timeSlider0": "희귀도 0 아이템 검색 시간",
+  "timeSlider1": "희귀도 1 아이템 검색 시간",
+  "timeSlider2": "희귀도 2 아이템 검색 시간",
+  "timeSlider3": "희귀도 3 아이템 검색 시간",
+  "timeSlider4": "희귀도 4 아이템 검색 시간",
+  "timeSlider5": "희귀도 5 아이템 검색 시간",
+  "timeSlider6": "희귀도 6 아이템 검색 시간",
+
+  "colorName0": "None(Original)",
+  "colorName1": "Grey",
+  "colorName2": "Green",
+  "colorName3": "Blue",
+  "colorName4": "Purple",
+  "colorName5": "Orange",
+  "colorName6": "Red",
+  "colorName7": "White"
+}

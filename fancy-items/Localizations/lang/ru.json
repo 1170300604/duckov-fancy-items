@@ -1,0 +1,32 @@
+﻿{
+  "qualityToggle": "Включить качественные визуальные эффекты",
+  "timeToggle": "Включить множитель времени поиска",
+  "audioToggle": "Включить звуковой эффект",
+
+  "qualityGroup": "Настройки цвета предметов (требуется перезапуск)",
+  "qualityList0": "Цвет предмета редкости 0",
+  "qualityList1": "Цвет предмета редкости 1",
+  "qualityList2": "Цвет предмета редкости 2",
+  "qualityList3": "Цвет предмета редкости 3",
+  "qualityList4": "Цвет предмета редкости 4",
+  "qualityList5": "Цвет предмета редкости 5",
+  "qualityList6": "Цвет предмета редкости 6",
+
+  "timeGroup": "Настройка времени поиска",
+  "timeSlider0": "Время поиска предмета редкости 0",
+  "timeSlider1": "Время поиска предмета редкости 1",
+  "timeSlider2": "Время поиска предмета редкости 2",
+  "timeSlider3": "Время поиска предмета редкости 3",
+  "timeSlider4": "Время поиска предмета редкости 4",
+  "timeSlider5": "Время поиска предмета редкости 5",
+  "timeSlider6": "Время поиска предмета редкости 6",
+
+  "colorName0": "None(Original)",
+  "colorName1": "Grey",
+  "colorName2": "Green",
+  "colorName3": "Blue",
+  "colorName4": "Purple",
+  "colorName5": "Orange",
+  "colorName6": "Red",
+  "colorName7": "White"
+}

@@ -1,0 +1,32 @@
+{
+  "qualityToggle": "Enable Quality Visual Effects",
+  "timeToggle": "Enable Search Time Multiplier",
+  "audioToggle": "Enable Sound Effect",
+
+  "qualityGroup": "Item Color Settings (Need Restart)",
+  "qualityList0": "Rarity 0 Item Color",
+  "qualityList1": "Rarity 1 Item Color",
+  "qualityList2": "Rarity 2 Item Color",
+  "qualityList3": "Rarity 3 Item Color",
+  "qualityList4": "Rarity 4 Item Color",
+  "qualityList5": "Rarity 5 Item Color",
+  "qualityList6": "Rarity 6 Item Color",
+
+  "timeGroup": "Search Time Setting",
+  "timeSlider0": "Rarity 0 Item Search Time",
+  "timeSlider1": "Rarity 1 Item Search Time",
+  "timeSlider2": "Rarity 2 Item Search Time",
+  "timeSlider3": "Rarity 3 Item Search Time",
+  "timeSlider4": "Rarity 4 Item Search Time",
+  "timeSlider5": "Rarity 5 Item Search Time",
+  "timeSlider6": "Rarity 6 Item Search Time",
+
+  "colorName0": "None(Original)",
+  "colorName1": "Grey",
+  "colorName2": "Green",
+  "colorName3": "Blue",
+  "colorName4": "Purple",
+  "colorName5": "Orange",
+  "colorName6": "Red",
+  "colorName7": "White"
+}

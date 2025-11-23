@@ -1,0 +1,32 @@
+{
+  "qualityToggle": "高品質の視覚効果を有効にする",
+  "timeToggle": "検索時間の乗数を有効にする",
+  "audioToggle": "効果音を有効にする",
+
+  "qualityGroup": "アイテムカラー設定(再起動が必要)",
+  "qualityList0": "レア度0アイテムカラー",
+  "qualityList1": "レア度1アイテムカラー",
+  "qualityList2": "レア度2アイテムカラー",
+  "qualityList3": "レア度3アイテムカラー",
+  "qualityList4": "レア度4アイテムカラー",
+  "qualityList5": "レア度5アイテムカラー",
+  "qualityList6": "レア度6アイテムカラー",
+
+  "timeGroup": "検索時間の設定",
+  "timeSlider0": "レア度0項目検索時間",
+  "timeSlider1": "レア度1項目検索時間",
+  "timeSlider2": "レア度2項目検索時間",
+  "timeSlider3": "レア度3項目検索時間",
+  "timeSlider4": "レア度4項目検索時間",
+  "timeSlider5": "レア度5項目検索時間",
+  "timeSlider6": "レア度6項目検索時間",
+
+  "colorName0": "None(Original)",
+  "colorName1": "Grey",
+  "colorName2": "Green",
+  "colorName3": "Blue",
+  "colorName4": "Purple",
+  "colorName5": "Orange",
+  "colorName6": "Red",
+  "colorName7": "White"
+}

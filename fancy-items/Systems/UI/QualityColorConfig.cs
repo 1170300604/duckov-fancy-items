@@ -1,15 +1,16 @@
+using FancyItems.Constants;
 using FancyItems.Core;
 using UnityEngine;
 
 namespace FancyItems.Systems.UI
 {
     /// <summary>
-    /// 品质颜色配置类
+    ///     品质颜色配置类
     /// </summary>
     public static class QualityColorConfig
     {
         /// <summary>
-        /// 获取指定品质的颜色
+        ///     获取指定品质的颜色
         /// </summary>
         /// <param name="quality">物品品质</param>
         /// <returns>对应的颜色</returns>
@@ -19,27 +20,21 @@ namespace FancyItems.Systems.UI
             if (quality > 6) quality = 6;
             var colorIndex = ModSetting.QualityColor[quality];
             if (colorIndex == 0) return null;
-            return Constants.FancyItemsConstants.QualityColors[colorIndex];
+            return FancyItemsConstants.QualityColors[colorIndex];
         }
 
         /// <summary>
-        /// 检查指定品质是否应该显示背景
+        ///     检查指定品质是否应该显示背景
         /// </summary>
         /// <param name="quality">物品品质</param>
         /// <returns>是否显示背景</returns>
-        public static bool ShouldShowBackground(int quality)
-        {
-            return quality > 1; // 品质0和1不显示背景
-        }
+        public static bool ShouldShowBackground(int quality) => quality > 1; // 品质0和1不显示背景
 
         /// <summary>
-        /// 获取背景透明度
+        ///     获取背景透明度
         /// </summary>
         /// <param name="quality">物品品质</param>
         /// <returns>透明度值</returns>
-        public static float GetBackgroundAlpha(int quality)
-        {
-            return GetQualityColor(quality)?.a ?? 0f;
-        }
+        public static float GetBackgroundAlpha(int quality) => GetQualityColor(quality)?.a ?? 0f;
     }
 }
